@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+option go_package = "./service";
+
+message ProductRequest{
+  string id = 1;
+  string name = 2;
+  string category = 3;
+  string type = 4;
+  string createdAt = 5;
+  string updatedAt = 6;
+}
+
+message Empty{}
+
+message ProductRequests{
+  repeated ProductRequest product= 1;
+}
+
+message Response{
+  string status = 1;
+}
+
+message ProductId{
+  string id = 1;
+}
+
+service ProductService{
+  rpc AddProduct(ProductRequest) returns (Response){}
+  rpc AddProducts(ProductRequests) returns (Response) {}
+  rpc FindOneById(ProductId) returns (ProductRequest){}
+  rpc FindAll(Empty) returns (ProductRequests){}
+  rpc DeleteById(ProductId) returns (Response){}
+}

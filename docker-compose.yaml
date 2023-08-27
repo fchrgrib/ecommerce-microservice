@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  product-service:
+    image: golang:latest
+    container_name: product-service
+    build: product-service
+    restart: always
+    ports:
+      - 8081:8081
+    environment:
+      PORT: 8081
