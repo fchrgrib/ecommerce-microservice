@@ -13,7 +13,7 @@ type ProductServiceServer struct {
 	service.UnimplementedProductServiceServer
 }
 
-func (ps *ProductServiceServer) FindOneById(ctx context.Context, in *service.ProductId) (*service.ProductRequest, error) {
+func (ps *ProductServiceServer) FindOneById(_ context.Context, in *service.ProductId) (*service.ProductRequest, error) {
 	var (
 		result service.ProductRequest
 		_db    db.Database
@@ -27,7 +27,7 @@ func (ps *ProductServiceServer) FindOneById(ctx context.Context, in *service.Pro
 	return &result, nil
 }
 
-func (ps *ProductServiceServer) FindAll(ctx context.Context, in *service.Empty) (*service.ProductRequests, error) {
+func (ps *ProductServiceServer) FindAll(_ context.Context, _ *service.Empty) (*service.ProductRequests, error) {
 	var values []*service.ProductRequest
 	var result service.ProductRequests
 	var _db db.Database
@@ -60,7 +60,7 @@ func (ps *ProductServiceServer) FindAll(ctx context.Context, in *service.Empty) 
 	return &result, nil
 }
 
-func (ps *ProductServiceServer) AddProduct(ctx context.Context, in *service.ProductRequest) (*service.Response, error) {
+func (ps *ProductServiceServer) AddProduct(_ context.Context, in *service.ProductRequest) (*service.Response, error) {
 	var (
 		response service.Response
 		_db      db.Database
@@ -78,7 +78,7 @@ func (ps *ProductServiceServer) AddProduct(ctx context.Context, in *service.Prod
 	return &response, nil
 }
 
-func (ps *ProductServiceServer) AddProducts(ctx context.Context, in *service.ProductRequests) (*service.Response, error) {
+func (ps *ProductServiceServer) AddProducts(_ context.Context, in *service.ProductRequests) (*service.Response, error) {
 
 	var (
 		response service.Response
@@ -98,7 +98,7 @@ func (ps *ProductServiceServer) AddProducts(ctx context.Context, in *service.Pro
 	return &response, nil
 }
 
-func (ps *ProductServiceServer) DeleteById(ctx context.Context, in *service.ProductId) (*service.Response, error) {
+func (ps *ProductServiceServer) DeleteById(_ context.Context, in *service.ProductId) (*service.Response, error) {
 	var (
 		response service.Response
 		_db      db.Database
