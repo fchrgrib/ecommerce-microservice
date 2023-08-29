@@ -7,6 +7,34 @@ services:
     build: product-service
     restart: always
     ports:
-      - 8081:8081
+      - 50051:50051
     environment:
       PORT: 8081
+
+  user-service:
+    image: golang:latest
+    container_name: user-service
+    build: user-service
+    restart: always
+    ports:
+      - 50052:50052
+    environment:
+      DB_HOST: postgres-db
+      DB_USER: fchrgrib
+      DB_PASSWORD: fchrgrib2310
+      DB_NAME: user-db
+      DB_PORT: 5432
+    depends_on:
+      - postgres-db
+
+  postgres-db:
+    image: postgres:latest
+    container_name: postgres-db
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_DATABASE: user-db
+      POSTGRES_USER: fchrgrib
+      POSTGRES_PASSWORD: fchrgrib2310
+      POSTGRES_HOST: postgres-db

@@ -16,7 +16,7 @@ func (db *Database) Connect() {
 		panic(err)
 	}
 
-	if _, err := _db.Exec("CREATE TABLE IF NOT EXISTS product(id VARCHAR(225) PRIMARY KEY, product_name VARCHAR(225), category VARCHAR(225), product_type VARCHAR(225), created_at TIME, updated_at TIME)"); err != nil {
+	if _, err := _db.Exec("CREATE TABLE IF NOT EXISTS product(id VARCHAR(225) PRIMARY KEY, product_name VARCHAR(225), category VARCHAR(225), product_type VARCHAR(225), price VARCHAR(225), created_at TIME, updated_at TIME)"); err != nil {
 		panic(err)
 	}
 

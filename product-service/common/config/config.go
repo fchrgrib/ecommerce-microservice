@@ -20,7 +20,7 @@ func (ps *ProductServiceServer) FindOneById(ctx context.Context, in *service.Pro
 	)
 	_db.Connect()
 
-	if err := _db.DB.QueryRow("SELECT * FROM product WHERE id = ?", in.GetId()).Scan(&result.Id, &result.Name, &result.Category, &result.Type, &result.CreatedAt, &result.UpdatedAt); err != nil {
+	if err := _db.DB.QueryRow("SELECT * FROM product WHERE id = ?", in.GetId()).Scan(&result.Id, &result.Name, &result.Category, &result.Type, &result.Price, &result.CreatedAt, &result.UpdatedAt); err != nil {
 		return nil, err
 	}
 
@@ -46,7 +46,7 @@ func (ps *ProductServiceServer) FindAll(ctx context.Context, in *service.Empty) 
 	for row.Next() {
 		var temp service.ProductRequest
 
-		if err := row.Scan(&temp.Id, &temp.Name, &temp.Category, &temp.Type, &temp.CreatedAt, &temp.UpdatedAt); err != nil {
+		if err := row.Scan(&temp.Id, &temp.Name, &temp.Category, &temp.Type, &temp.Price, &temp.CreatedAt, &temp.UpdatedAt); err != nil {
 			return nil, err
 		}
 
@@ -67,7 +67,7 @@ func (ps *ProductServiceServer) AddProduct(ctx context.Context, in *service.Prod
 	)
 	_db.Connect()
 
-	if _, err := _db.DB.Exec("INSERT INTO product(id, product_name, category, product_type, created_at, updated_at) VALUES (?,?,?,?,?,?)", uuid.New(), in.GetName(), in.GetCategory(), in.GetType(), time.Now().String(), time.Now().String()); err != nil {
+	if _, err := _db.DB.Exec("INSERT INTO product(id, product_name, category, product_type, price, created_at, updated_at) VALUES (?,?,?,?,?,?)", uuid.New(), in.GetName(), in.GetCategory(), in.GetType(), in.GetPrice(), time.Now().String(), time.Now().String()); err != nil {
 		return nil, err
 	}
 
@@ -87,7 +87,7 @@ func (ps *ProductServiceServer) AddProducts(ctx context.Context, in *service.Pro
 	_db.Connect()
 
 	for _, ins := range in.GetProduct() {
-		if _, err := _db.DB.Exec("INSERT INTO product(id, product_name, category, product_type, created_at, updated_at) VALUES (?,?,?,?,?,?)", uuid.New(), ins.GetName(), ins.GetCategory(), ins.GetType(), time.Now().String(), time.Now().String()); err != nil {
+		if _, err := _db.DB.Exec("INSERT INTO product(id, product_name, category, product_type, created_at, updated_at) VALUES (?,?,?,?,?,?)", uuid.New(), ins.GetName(), ins.GetCategory(), ins.GetType(), ins.GetPrice(), time.Now().String(), time.Now().String()); err != nil {
 			return nil, err
 		}
 	}

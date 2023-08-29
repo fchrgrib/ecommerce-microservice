@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+option go_package = "./service";
+
+message UserRequest{
+  string id = 1;
+  string userId = 2;
+  string userName = 3;
+  string phoneNumber = 4;
+  string email = 5;
+  string address = 6;
+  string born = 7;
+  string createdAt = 8;
+  string updatedAt = 9;
+}
+
+message Id{
+  string id = 1;
+}
+
+message UserResponse{
+  string status = 1;
+}
+
+message UserUpdate{
+  Id userId = 1;
+  UserRequest userRequest = 2;
+}
+
+service UserService{
+  rpc AddUser(UserRequest) returns (UserResponse){}
+  rpc UpdateUser(UserUpdate) returns (UserResponse){}
+  rpc FindUserById(Id) returns (UserRequest){}
+  rpc DeleteUserById(Id) returns (UserResponse){}
+  /**
+  rpc AddHistoryOrder(Id) returns (Product){}
+  rpc
+  **/
+}

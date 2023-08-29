@@ -7,9 +7,8 @@ message ProductRequest{
   string name = 2;
   string category = 3;
   string type = 4;
-  string price = 5;
-  string createdAt = 6;
-  string updatedAt = 7;
+  string createdAt = 5;
+  string updatedAt = 6;
 }
 
 message Empty{}
@@ -18,7 +17,7 @@ message ProductRequests{
   repeated ProductRequest product= 1;
 }
 
-message Response{
+message ProductResponse{
   string status = 1;
 }
 
@@ -27,9 +26,9 @@ message ProductId{
 }
 
 service ProductService{
-  rpc AddProduct(ProductRequest) returns (Response){}
-  rpc AddProducts(ProductRequests) returns (Response) {}
+  rpc AddProduct(ProductRequest) returns (ProductResponse){}
+  rpc AddProducts(ProductRequests) returns (ProductResponse) {}
   rpc FindOneById(ProductId) returns (ProductRequest){}
   rpc FindAll(Empty) returns (ProductRequests){}
-  rpc DeleteById(ProductId) returns (Response){}
+  rpc DeleteById(ProductId) returns (ProductResponse){}
 }
