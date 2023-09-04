@@ -9,7 +9,7 @@ services:
     ports:
       - 50051:50051
     environment:
-      PORT: 8081
+      PORT: 50051
 
   user-service:
     image: golang:latest
@@ -19,22 +19,23 @@ services:
     ports:
       - 50052:50052
     environment:
-      DB_HOST: postgres-db
+      DB_HOST: mysql-db
       DB_USER: fchrgrib
       DB_PASSWORD: fchrgrib2310
       DB_NAME: user-db
       DB_PORT: 5432
+      PORT: 50052
     depends_on:
-      - postgres-db
+      - mysql-db
 
-  postgres-db:
-    image: postgres:latest
-    container_name: postgres-db
+  mysql-db:
+    image: mysql:latest
+    container_name: mysql-db
     restart: always
     ports:
       - 5432:5432
     environment:
-      POSTGRES_DATABASE: user-db
-      POSTGRES_USER: fchrgrib
-      POSTGRES_PASSWORD: fchrgrib2310
-      POSTGRES_HOST: postgres-db
+      MYSQL_ROOT_PASSWORD: fchrgrib2310
+      MYSQL_DATABASE: user-db
+      MYSQL_USER: fchrgrib
+      MYSQL_PASSWORD: fchrgrib2310

@@ -17,14 +17,11 @@ func main() {
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}
-	//defer func(conn *grpc.ClientConn) {
-	//	if err := conn.Close(); err != nil {
-	//		log.Fatal("did not connect", err)
-	//	}
-	//}(conn)
 
 	srv := grpc.NewServer()
 	product := &config.ProductServiceServer{}
+
+	fmt.Println("listening port:", port)
 
 	service.RegisterProductServiceServer(srv, product)
 	srv.Serve(lis)

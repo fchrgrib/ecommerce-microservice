@@ -32,8 +32,4 @@ service UserService{
   rpc UpdateUser(UserUpdate) returns (UserResponse){}
   rpc FindUserById(Id) returns (UserRequest){}
   rpc DeleteUserById(Id) returns (UserResponse){}
-  /**
-  rpc AddHistoryOrder(Id) returns (Product){}
-  rpc
-  **/
 }

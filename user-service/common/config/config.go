@@ -11,7 +11,7 @@ type UserService struct {
 	service.UnimplementedUserServiceServer
 }
 
-func (us *UserService) AddUser(_ context.Context, in *service.UserRequest) (*service.UserResponse, error) {
+func (us *UserService) AddUser(ctx context.Context, in *service.UserRequest) (*service.UserResponse, error) {
 	var (
 		_db      db.Database
 		response service.UserResponse
@@ -73,7 +73,7 @@ func (us *UserService) DeleteUserById(_ context.Context, in *service.Id) (*servi
 	}
 	defer _db.DB.Close()
 
-	response.Status = "okupda"
+	response.Status = "ok"
 
 	return &response, nil
 }
