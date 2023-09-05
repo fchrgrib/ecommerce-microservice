@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+option go_package = "./service";
+
+message PaymentRequest{
+  string id = 1;
+  string customerId = 2;
+  string customerName = 3;
+  string productID = 4;
+  string productName = 5;
+  string price = 6;
+  string dateOrder = 7;
+  string serviceShipmentName = 8;
+  string dateShipment = 9;
+  string shipmentMethod = 10;
+}
+
+message PaymentsResponse{
+  repeated PaymentRequest payments = 1;
+}
+
+message PaymentId{
+  string id = 1;
+}
+
+message PaymentIds{
+  repeated PaymentId paymentId = 1;
+}
+
+message PaymentResponse{
+  string status = 1;
+}
+
+message Empty{}
+
+service PaymentService{
+  rpc FindAll(Empty) returns(PaymentsResponse){}
+  rpc FindId(PaymentId) returns(PaymentRequest){}
+  rpc AddPayment(PaymentRequest) returns(PaymentResponse){}
+  rpc AddPayments(PaymentsResponse) returns(PaymentResponse){}
+  rpc DeletePayment(PaymentId) returns(PaymentResponse){}
+  rpc DeletePayments(PaymentIds) returns(PaymentResponse){}
+}
