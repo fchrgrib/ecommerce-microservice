@@ -23,7 +23,7 @@ services:
       DB_USER: fchrgrib
       DB_PASSWORD: fchrgrib2310
       DB_NAME: user-db
-      DB_PORT: 5432
+      DB_PORT: 3306
       PORT: 50052
     depends_on:
       - mysql-db
@@ -33,7 +33,7 @@ services:
     container_name: mysql-db
     restart: always
     ports:
-      - 5432:5432
+      - 3307:3306
     environment:
       MYSQL_ROOT_PASSWORD: fchrgrib2310
       MYSQL_DATABASE: user-db

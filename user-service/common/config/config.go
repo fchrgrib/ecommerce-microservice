@@ -4,6 +4,7 @@ import (
 	"context"
 	"github.com/user-service/common/service"
 	"github.com/user-service/db"
+	"sync"
 	"time"
 )
 
@@ -15,12 +16,22 @@ func (us *UserService) AddUser(ctx context.Context, in *service.UserRequest) (*s
 	var (
 		_db      db.Database
 		response service.UserResponse
+		wg       sync.WaitGroup
 	)
 	_db.Connect()
 
-	if _, err := _db.DB.Exec("INSERT INTO users(id, user_id, user_name, phone_number, email, address, born, created_at, updated_at) VALUES (?,?,?,?,?,?,?,?,?)", in.GetId(), in.GetUserId(), in.GetUserName(), in.GetPhoneNumber(), in.GetEmail(), in.GetAddress(), in.GetBorn(), time.Now(), time.Now()); err != nil {
+	wg.Add(1)
+
+	var err error
+
+	go func() {
+		wg.Done()
+		_, err = _db.DB.Exec("INSERT INTO users(id, user_id, user_name, phone_number, email, address, born, created_at, updated_at) VALUES (?,?,?,?,?,?,?,?,?)", in.GetId(), in.GetUserId(), in.GetUserName(), in.GetPhoneNumber(), in.GetEmail(), in.GetAddress(), in.GetBorn(), time.Now(), time.Now())
+	}()
+	if err != nil {
 		return nil, err
 	}
+	wg.Wait()
 
 	response.Status = "ok"
 	defer _db.DB.Close()
