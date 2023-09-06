@@ -28,6 +28,23 @@ services:
     depends_on:
       - mysql-db
 
+  order-service:
+    image: golang:latest
+    container_name: order-service
+    build: order-service
+    restart: always
+    ports:
+      - 50053:50053
+    environment:
+      DB_HOST: postgres-db
+      DB_USER: fchrgrib
+      DB_PASSWORD: fchrgrib2310
+      DB_NAME: order-db
+      DB_PORT: 5432
+      PORT: 50053
+    depends_on:
+      - postgres-db
+
   mysql-db:
     image: mysql:latest
     container_name: mysql-db
@@ -39,3 +56,15 @@ services:
       MYSQL_DATABASE: user-db
       MYSQL_USER: fchrgrib
       MYSQL_PASSWORD: fchrgrib2310
+
+  postgres-db:
+    image: postgres:latest
+    container_name: postgres-db
+    restart: always
+    ports:
+      - 5433:5432
+    environment:
+      POSTGRES_ROOT_PASSWORD: fchrgrib2310
+      POSTGRES_DATABASE: order-db
+      POSTGRES_USER: fchrgrib
+      POSTGRES_PASSWORD: fchrgrib2310
